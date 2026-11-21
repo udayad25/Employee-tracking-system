@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width,initial-scale=1" name="viewport"/>
+        <title>
+            Initial administrator setup
+        </title>
+        <link href="{% static 'css/style.css' %}" rel="stylesheet"/>
+    </head>
+    <body class="login-page">
+        <main class="login-card">
+            <div class="brand-mark">
+                E
+            </div>
+            <p class="eyebrow">
+                FIRST-TIME SETUP
+            </p>
+            <h1>
+                Create administrator
+            </h1>
+            <p class="muted">
+                This page works only when ALLOW_ADMIN_SETUP=1 and no administrator exists.
+            </p>
+            {% for message in messages %}
+            <div class="alert {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+            <form method="post">
+                {% csrf_token %}
+                <label>
+                    Full name
+                    <input name="name" required=""/>
+                </label>
+                <label>
+                    Username
+                    <input name="username" required=""/>
+                </label>
+                <label>
+                    Password
+                    <input minlength="8" name="password" required="" type="password"/>
+                </label>
+                <button class="primary full">
+                    Create admin
+                </button>
+            </form>
+            <p class="tiny muted">
+                After creating the account, set ALLOW_ADMIN_SETUP=0 in .env.
+            </p>
+        </main>
+    </body>
+</html>
+

@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width,initial-scale=1" name="viewport"/>
+        <title>
+            EMTS &middot; Sign in
+        </title>
+        <link href="{% static 'css/style.css' %}" rel="stylesheet"/>
+    </head>
+    <body class="login-page">
+        <main class="login-card">
+            <div class="brand-mark">
+                E
+            </div>
+            <p class="eyebrow">
+                EMPLOYEE MANAGEMENT
+            </p>
+            <h1>
+                Welcome back
+            </h1>
+            <p class="muted">
+                Sign in to your EMTS workspace.
+            </p>
+            {% for message in messages %}
+            <div class="alert {{ message.tags }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+            <form method="post">
+                {% csrf_token %}
+                <label>
+                    Username
+                    <input autocomplete="username" autofocus="" name="username" required=""/>
+                </label>
+                <label>
+                    Password
+                    <input autocomplete="current-password" name="password" required="" type="password"/>
+                </label>
+                <button class="primary full" type="submit">
+                    Sign in
+                    <span>
+                        &rarr;
+                    </span>
+                </button>
+            </form>
+            <p class="tiny muted center">
+                Secure employee workspace
+            </p>
+        </main>
+    </body>
+</html>
+

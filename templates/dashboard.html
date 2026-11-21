@@ -1,0 +1,558 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width,initial-scale=1" name="viewport"/>
+        <title>
+            EMTS &middot; Workspace
+        </title>
+        <link href="{% static 'css/style.css' %}" rel="stylesheet"/>
+    </head>
+    <body>
+        <div class="app-shell">
+            <aside class="sidebar" id="sidebar">
+                <div class="brand">
+                    <div class="brand-mark">
+                        E
+                    </div>
+                    <div>
+                        <b>
+                            EMTS
+                        </b>
+                        <small>
+                            WORKSPACE
+                        </small>
+                    </div>
+                </div>
+                <div class="side-label">
+                    WORKSPACE
+                </div>
+                <nav id="nav">
+                    <button class="nav-item active" data-page="overview">
+                        <span>
+                            ◫
+                        </span>
+                        Overview
+                    </button>
+                    <button class="nav-item" data-page="attendance">
+                        <span>
+                            ◷
+                        </span>
+                        Attendance
+                    </button>
+                    <button class="nav-item" data-page="tasks">
+                        <span>
+                            ▤
+                        </span>
+                        Tasks
+                    </button>
+                    <button class="nav-item" data-page="leaves">
+                        <span>
+                            ▧
+                        </span>
+                        Leave management
+                    </button>
+                    <button class="nav-item admin-only" data-page="employees">
+                        <span>
+                            ♙
+                        </span>
+                        Employees
+                    </button>
+                    <button class="nav-item admin-only" data-page="departments">
+                        <span>
+                            ⌂
+                        </span>
+                        Departments
+                    </button>
+                    <button class="nav-item admin-only" data-page="reports">
+                        <span>
+                            ▥
+                        </span>
+                        Reports
+                    </button>
+                    <button class="nav-item" data-page="notifications">
+                        <span>
+                            ♧
+                        </span>
+                        Notifications
+                    </button>
+                    <button class="nav-item admin-only" data-page="audit">
+                        <span>
+                            ☷
+                        </span>
+                        Audit log
+                    </button>
+                    <button class="nav-item" data-page="payroll">
+                        <span>
+                            ＄
+                        </span>
+                        Payroll
+                    </button>
+                </nav>
+                <div class="sidebar-bottom">
+                    <div class="user-mini">
+                        <div class="avatar">
+                            {{ user.name|first|upper }}
+                        </div>
+                        <div class="user-meta">
+                            <b>
+                                {{ user.name }}
+                            </b>
+                            <small>
+                                {{ user.role|title }}
+                            </small>
+                        </div>
+                    </div>
+                    <form action="{% url 'logout' %}" class="logout-form" method="post">
+                        {% csrf_token %}
+                        <button class="logout" type="submit">
+                            Sign out
+                        </button>
+                    </form>
+                </div>
+            </aside>
+            <main class="main">
+                <header class="topbar">
+                    <button class="mobile-menu" id="mobileMenu">
+                        ☰
+                    </button>
+                    <div>
+                        <div class="breadcrumb">
+                            Workspace /
+                            <b id="crumb">
+                                Overview
+                            </b>
+                        </div>
+                        <h1 id="pageTitle">
+                            Good afternoon, {{ user.name }}
+                        </h1>
+                    </div>
+                    <div class="top-actions">
+                        <span class="date-chip" id="today">
+                        </span>
+                        <div class="avatar small">
+                            {{ user.name|first|upper }}
+                        </div>
+                    </div>
+                </header>
+                <div class="content">
+                    <div class="toast" id="toast">
+                    </div>
+                    <section class="page active" id="overview">
+                        <div class="welcome-row">
+                            <div>
+                                <p class="eyebrow">
+                                    YOUR WORKSPACE
+                                </p>
+                                <h2 id="welcomeTitle">
+                                    Here's your overview
+                                </h2>
+                                <p class="muted">
+                                    A clear view of your team's activity and today's priorities.
+                                </p>
+                            </div>
+                            <span class="role-pill">
+                                {{ user.role }}
+                            </span>
+                        </div>
+                        <div class="stats-grid" id="stats">
+                        </div>
+                        <div class="panel-grid">
+                            <article class="panel">
+                                <div class="panel-head">
+                                    <div>
+                                        <h3>
+                                            Quick actions
+                                        </h3>
+                                        <p class="muted">
+                                            Jump into your daily workflow
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="quick-grid">
+                                    <button class="quick-card" data-go="attendance">
+                                        <span class="quick-icon lavender">
+                                            ◷
+                                        </span>
+                                        <b>
+                                            Attendance
+                                        </b>
+                                        <small>
+                                            Check in or view history
+                                        </small>
+                                    </button>
+                                    <button class="quick-card" data-go="tasks">
+                                        <span class="quick-icon blue">
+                                            ▤
+                                        </span>
+                                        <b>
+                                            My tasks
+                                        </b>
+                                        <small>
+                                            Track work and progress
+                                        </small>
+                                    </button>
+                                    <button class="quick-card" data-go="leaves">
+                                        <span class="quick-icon peach">
+                                            ▧
+                                        </span>
+                                        <b>
+                                            Leave requests
+                                        </b>
+                                        <small>
+                                            Apply and review status
+                                        </small>
+                                    </button>
+                                    <button class="quick-card admin-only" data-go="employees">
+                                        <span class="quick-icon mint">
+                                            ♙
+                                        </span>
+                                        <b>
+                                            Employees
+                                        </b>
+                                        <small>
+                                            Manage your team
+                                        </small>
+                                    </button>
+                                </div>
+                            </article>
+                            <article class="panel announcement-panel">
+                                <div class="panel-head">
+                                    <div>
+                                        <h3>
+                                            Announcements
+                                        </h3>
+                                        <p class="muted">
+                                            Latest company updates
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="empty-state" id="announcements">
+                                    No announcements yet.
+                                </div>
+                            </article>
+                        </div>
+                    </section>
+                    <section class="page" id="attendance">
+                        <div class="section-head">
+                            <div>
+                                <p class="eyebrow">
+                                    TIME &amp; PRESENCE
+                                </p>
+                                <h2>
+                                    Attendance
+                                </h2>
+                                <p class="muted">
+                                    Record your working hours and review attendance history.
+                                </p>
+                            </div>
+                            <div class="button-row employee-only">
+                                <button class="primary" id="checkinBtn">
+                                    Check in
+                                </button>
+                                <button class="secondary" id="checkoutBtn">
+                                    Check out
+                                </button>
+                            </div>
+                        </div>
+                        <div class="panel">
+                            <div class="panel-head">
+                                <h3>
+                                    Attendance history
+                                </h3>
+                                <button class="secondary small-btn" id="refreshAttendance">
+                                    Refresh
+                                </button>
+                            </div>
+                            <div class="table-wrap">
+                                <table>
+                                    <thead>
+                                        <tr id="attendanceHead">
+                                        </tr>
+                                    </thead>
+                                    <tbody id="attendanceRows">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="page" id="tasks">
+                        <div class="section-head">
+                            <div>
+                                <p class="eyebrow">
+                                    WORK MANAGEMENT
+                                </p>
+                                <h2>
+                                    Tasks
+                                </h2>
+                                <p class="muted">
+                                    Keep track of assignments, deadlines and progress.
+                                </p>
+                            </div>
+                            <button class="primary admin-only" id="newTaskBtn">
+                                ＋ Assign task
+                            </button>
+                        </div>
+                        <div class="panel">
+                            <div class="panel-head">
+                                <h3>
+                                    Task board
+                                </h3>
+                                <span class="muted" id="taskCount">
+                                </span>
+                            </div>
+                            <div class="task-list" id="taskList">
+                            </div>
+                        </div>
+                    </section>
+                    <section class="page" id="leaves">
+                        <div class="section-head">
+                            <div>
+                                <p class="eyebrow">
+                                    TIME OFF
+                                </p>
+                                <h2>
+                                    Leave management
+                                </h2>
+                                <p class="muted">
+                                    Submit leave requests and track approvals.
+                                </p>
+                            </div>
+                            <button class="primary employee-only" id="applyLeaveBtn">
+                                ＋ Apply for leave
+                            </button>
+                        </div>
+                        <div class="panel">
+                            <div class="panel-head">
+                                <h3>
+                                    Leave requests
+                                </h3>
+                            </div>
+                            <div class="table-wrap">
+                                <table>
+                                    <thead>
+                                        <tr id="leaveHead">
+                                        </tr>
+                                    </thead>
+                                    <tbody id="leaveRows">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="page" id="employees">
+                        <div class="section-head">
+                            <div>
+                                <p class="eyebrow">
+                                    PEOPLE
+                                </p>
+                                <h2>
+                                    Employees
+                                </h2>
+                                <p class="muted">
+                                    Manage employee accounts and departments.
+                                </p>
+                            </div>
+                            <button class="primary" id="newEmployeeBtn">
+                                ＋ Add employee
+                            </button>
+                        </div>
+                        <div class="panel">
+                            <div class="panel-head">
+                                <h3>
+                                    Team directory
+                                </h3>
+                                <input class="search" id="employeeSearch" placeholder="Search employees&hellip;"/>
+                            </div>
+                            <div class="table-wrap">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Employee
+                                            </th>
+                                            <th>
+                                                Username
+                                            </th>
+                                            <th>
+                                                Department
+                                            </th>
+                                            <th>
+                                                Phone
+                                            </th>
+                                            <th>
+                                                Action
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="employeeRows">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="page" id="departments">
+                        <div class="section-head">
+                            <div>
+                                <p class="eyebrow">
+                                    ORGANIZATION
+                                </p>
+                                <h2>
+                                    Departments
+                                </h2>
+                                <p class="muted">
+                                    Organize employees by department.
+                                </p>
+                            </div>
+                            <button class="primary" id="newDepartmentBtn">
+                                ＋ Add department
+                            </button>
+                        </div>
+                        <div class="panel">
+                            <div class="department-grid" id="departmentList">
+                            </div>
+                        </div>
+                    </section>
+                    <section class="page" id="reports">
+                        <div class="section-head">
+                            <div>
+                                <p class="eyebrow">
+                                    INSIGHTS
+                                </p>
+                                <h2>
+                                    Reports
+                                </h2>
+                                <p class="muted">
+                                    Monthly attendance performance overview.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="panel">
+                            <div class="panel-head">
+                                <h3>
+                                    Attendance trends
+                                </h3>
+                            </div>
+                            <div class="chart" id="reportChart">
+                            </div>
+                        </div>
+                    </section>
+                    <section class="page" id="notifications">
+                        <div class="section-head">
+                            <div>
+                                <p class="eyebrow">
+                                    UPDATES
+                                </p>
+                                <h2>
+                                    Notifications
+                                </h2>
+                                <p class="muted">
+                                    Stay informed about your workspace.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="panel">
+                            <div class="notification-list" id="notificationList">
+                            </div>
+                        </div>
+                    </section>
+                    <section class="page" id="audit">
+                        <div class="section-head">
+                            <div>
+                                <p class="eyebrow">
+                                    SECURITY
+                                </p>
+                                <h2>
+                                    Audit log
+                                </h2>
+                                <p class="muted">
+                                    Recent administrative actions.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="panel">
+                            <div class="table-wrap">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Administrator
+                                            </th>
+                                            <th>
+                                                Action
+                                            </th>
+                                            <th>
+                                                Target
+                                            </th>
+                                            <th>
+                                                Details
+                                            </th>
+                                            <th>
+                                                Time
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="auditRows">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="page" id="payroll">
+                        <div class="section-head">
+                            <div>
+                                <p class="eyebrow">
+                                    COMPENSATION
+                                </p>
+                                <h2>
+                                    Payroll
+                                </h2>
+                                <p class="muted">
+                                    Payroll information and payslip records.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="panel" id="payrollInfo">
+                        </div>
+                    </section>
+                </div>
+            </main>
+        </div>
+        <dialog id="modal">
+            <form id="modalForm">
+                {% csrf_token %}
+                <div class="modal-head">
+                    <div>
+                        <p class="eyebrow" id="modalEyebrow">
+                            WORKSPACE
+                        </p>
+                        <h3 id="modalTitle">
+                            Add record
+                        </h3>
+                    </div>
+                    <button aria-label="Close" class="icon-btn" id="modalCloseButton" type="button">
+                        &times;
+                    </button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                </div>
+                <div class="modal-actions">
+                    <button class="secondary" id="modalCancelButton" type="button">
+                        Cancel
+                    </button>
+                    <button class="primary" id="modalSubmit" type="submit">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </dialog>
+        {{ user|json_script:"emts-user" }}
+        <script>
+            window.EMTS_USER=JSON.parse(document.getElementById("emts-user").textContent);
+        </script>
+        <script src="{% static 'js/app.js' %}">
+        </script>
+    </body>
+</html>
+
